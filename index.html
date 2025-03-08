@@ -7,34 +7,6 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Nav-Bar -->
-    <nav class="navbar">
-      <div class="container">
-        <a href="#" class="logo">Coding Practice Hub</a>
-        <div class="menu-icon" id="menu-icon">&#9776;</div>
-        <ul class="nav-links" id="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#practice">Practice</a></li>
-
-          <li class="dropdown">
-            <a href="#" class="dropbtn">Learn &#9662;</a>
-            <ul class="dropdown-content">
-              <li><a href="./javaScript.html">JavaScript</a></li>
-              <li><a href="./html&css.html">HTML &amp; CSS</a></li>
-              <li><a href="./nodejs.html">Node.js</a></li>
-              <li><a href="./expressJS.html">Express.js</a></li>
-              <li><a href="./api.html">API</a></li>
-              <li><a href="./auth.html">Auth</a></li>
-              <li><a href="./">Database</a></li>
-            </ul>
-          </li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#policy">Policy</a></li>
-        </ul>
-      </div>
-    </nav>
-
     <!-- Hero Section -->
     <section class="hero" id="about">
       <div class="hero-content">
@@ -53,28 +25,7 @@
       <section id="practice" class="card-container">
         <!-- Cards will be rendered here by JavaScript -->
       </section>
-
-      <!-- Detailed Sections -->
-
-      <!-- Additional Sections: Contact, FAQ, Policy -->
-      <section id="contact" class="detail-section">
-        <h2>Contact</h2>
-        <p>[Insert your contact information here.]</p>
-      </section>
-      <section id="faq" class="detail-section">
-        <h2>FAQ</h2>
-        <p>[Insert frequently asked questions here.]</p>
-      </section>
-      <section id="policy" class="detail-section">
-        <h2>Policy</h2>
-        <p>[Insert your policy information here.]</p>
-      </section>
     </main>
-
-    <!-- Footer -->
-    <footer>
-      <p>&copy; 2025 Coding Practice Hub. All Rights Reserved.</p>
-    </footer>
 
     <!-- Dynamic Cards Script -->
     <script>
@@ -113,7 +64,7 @@
         {
           title: "Database",
           description: "Practice database operations and advanced queries.",
-          target: "dataBase.html",
+          target: "./dataBase.html",
         },
       ];
 
