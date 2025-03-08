@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Express.js Practice Problems</title>
+    <style>
+      /* Global Reset and Styling */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #eef2f3;
+        color: #333;
+        padding: 10px;
+      }
+
+      header {
+        background: #35424a;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      header h1 {
+        margin-bottom: 10px;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav ul li {
+        margin: 5px 10px;
+      }
+
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      nav ul li a:hover {
+        text-decoration: underline;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+      }
+
+      section {
+        margin-bottom: 40px;
+      }
+
+      section h2 {
+        border-bottom: 2px solid #35424a;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+      }
+
+      article {
+        margin-bottom: 20px;
+      }
+
+      article pre {
+        background: #f4f4f4;
+        padding: 10px;
+        overflow-x: auto;
+        border-left: 5px solid #35424a;
+        border-radius: 3px;
+        margin-bottom: 10px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 10px;
+        margin-top: 20px;
+        background: #35424a;
+        color: #fff;
+      }
+
+      /* Responsive Navigation */
+      @media (max-width: 768px) {
+        nav ul {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Express.js Practice Problems</h1>
+      <nav>
+        <ul>
+          <li><a href="#problem1">1. Basic Express Server</a></li>
+          <li><a href="#problem2">2. REST API Endpoints</a></li>
+          <li><a href="#problem3">3. Custom Middleware &amp; Router</a></li>
+          <li><a href="#problem4">4. Async Routes &amp; Error Handling</a></li>
+          <li><a href="#problem5">5. Modular App with Authentication</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Problem 1: Basic Express Server -->
+      <section id="problem1">
+        <h2>1. Basic Express Server (Easy)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Create a simple Express server that
+            listens on port 3000 and responds with "Hello from Express!" when a
+            GET request is made to the root route.
+          </p>
+          <pre><code class="javascript">
+// File: basicServer.js
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello from Express!');
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 2: REST API Endpoints -->
+      <section id="problem2">
+        <h2>2. REST API Endpoints (Slightly Medium)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Build a simple REST API with Express.
+            Create endpoints for GET, POST, PUT, and DELETE requests at the
+            route <code>/api/items</code> using an in-memory array as your data
+            store.
+          </p>
+          <pre><code class="javascript">
+// File: restApi.js
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// In-memory data store
+let items = [
+  { id: 1, name: 'Item One' },
+  { id: 2, name: 'Item Two' }
+];
+
+app.use(express.json());
+
+// GET all items
+app.get('/api/items', (req, res) => {
+  res.json(items);
+});
+
+// POST a new item
+app.post('/api/items', (req, res) => {
+  const newItem = {
+    id: items.length + 1,
+    name: req.body.name
+  };
+  items.push(newItem);
+  res.status(201).json(newItem);
+});
+
+// PUT update an item
+app.put('/api/items/:id', (req, res) => {
+  const item = items.find(i => i.id === parseInt(req.params.id));
+  if (!item) return res.status(404).send('Item not found');
+  
+  item.name = req.body.name;
+  res.json(item);
+});
+
+// DELETE an item
+app.delete('/api/items/:id', (req, res) => {
+  items = items.filter(i => i.id !== parseInt(req.params.id));
+  res.status(204).send();
+});
+
+app.listen(port, () => {
+  console.log(`REST API server running on http://localhost:${port}`);
+});
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 3: Custom Middleware & Router -->
+      <section id="problem3">
+        <h2>3. Custom Middleware &amp; Router (Medium)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Implement custom middleware that logs the
+            HTTP method and URL of incoming requests. Then, create a separate
+            router for managing user-related routes (<code>/users</code>) and
+            mount it on your Express application.
+          </p>
+          <pre><code class="javascript">
+// File: middlewareRouter.js
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Custom logging middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+
+// Create a router for /users routes
+const userRouter = express.Router();
+
+userRouter.get('/', (req, res) => {
+  res.send('List of users');
+});
+
+userRouter.get('/:id', (req, res) => {
+  res.send(`User with ID: ${req.params.id}`);
+});
+
+// Mount the router
+app.use('/users', userRouter);
+
+app.listen(port, () => {
+  console.log(`Server with custom middleware running on http://localhost:${port}`);
+});
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 4: Async Routes & Error Handling -->
+      <section id="problem4">
+        <h2>4. Async Routes &amp; Error Handling (Medium-Hard)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Create an asynchronous route using
+            async/await that simulates a delay (e.g., using
+            <code>setTimeout</code> wrapped in a promise). Include proper error
+            handling using Express’s <code>next()</code> mechanism so that
+            errors are passed to an error-handling middleware.
+          </p>
+          <pre><code class="javascript">
+// File: asyncErrorHandling.js
+const express = require('express');
+const app = express();
+const port = 3000;
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+app.get('/async', async (req, res, next) => {
+  try {
+    await delay(1000);
+    // Simulate an error condition
+    if (Math.random() > 0.5) {
+      throw new Error('Random error occurred!');
+    }
+    res.send('Async operation completed successfully!');
+  } catch (err) {
+    next(err); // Pass error to the error-handling middleware
+  }
+});
+
+// Error-handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send(`Error: ${err.message}`);
+});
+
+app.listen(port, () => {
+  console.log(`Async route server running on http://localhost:${port}`);
+});
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 5: Modular App with Authentication -->
+      <section id="problem5">
+        <h2>5. Modular App with Authentication (Hard)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Build a modular Express application by
+            splitting routes and middleware into separate files. Implement a
+            simple authentication middleware that checks for a token in the
+            request headers before allowing access to protected routes. Use
+            sub-routers for organizing routes (for example, an
+            <code>auth</code> router and a <code>products</code> router).
+          </p>
+          <pre><code class="javascript">
+// File: app.js
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Import routers
+const authRouter = require('./routes/auth');
+const productsRouter = require('./routes/products');
+
+app.use(express.json());
+
+// Authentication middleware
+function authenticate(req, res, next) {
+  const token = req.headers['authorization'];
+  if (token === 'secret-token') {
+    next();
+  } else {
+    res.status(401).send('Unauthorized: Invalid or missing token');
+  }
+}
+
+// Mount routers
+app.use('/auth', authRouter);
+app.use('/products', authenticate, productsRouter);
+
+app.listen(port, () => {
+  console.log(`Modular app running on http://localhost:${port}`);
+});
+
+// ----------------------------------
+// File: routes/auth.js
+const express = require('express');
+const router = express.Router();
+
+router.post('/login', (req, res) => {
+  // In a real app, validate user credentials
+  res.json({ token: 'secret-token', message: 'Login successful' });
+});
+
+module.exports = router;
+
+// ----------------------------------
+// File: routes/products.js
+const express = require('express');
+const router = express.Router();
+
+// Dummy product data
+const products = [
+  { id: 1, name: 'Product One' },
+  { id: 2, name: 'Product Two' }
+];
+
+router.get('/', (req, res) => {
+  res.json(products);
+});
+
+router.get('/:id', (req, res) => {
+  const product = products.find(p => p.id === parseInt(req.params.id));
+  if (!product) return res.status(404).send('Product not found');
+  res.json(product);
+});
+
+module.exports = router;
+        </code></pre>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Express.js Practice Problems</p>
+    </footer>
+    <script>
+      // Optional: Smooth scrolling for in-page anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

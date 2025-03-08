@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Database Practice Problems</title>
+    <style>
+      /* Global Reset and Styling */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #eef2f3;
+        color: #333;
+        padding: 10px;
+      }
+
+      header {
+        background: #35424a;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      header h1 {
+        margin-bottom: 10px;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav ul li {
+        margin: 5px 10px;
+      }
+
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      nav ul li a:hover {
+        text-decoration: underline;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+      }
+
+      section {
+        margin-bottom: 40px;
+      }
+
+      section h2 {
+        border-bottom: 2px solid #35424a;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+      }
+
+      article {
+        margin-bottom: 20px;
+      }
+
+      article pre {
+        background: #f4f4f4;
+        padding: 10px;
+        overflow-x: auto;
+        border-left: 5px solid #35424a;
+        border-radius: 3px;
+        margin-bottom: 10px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 10px;
+        margin-top: 20px;
+        background: #35424a;
+        color: #fff;
+      }
+
+      /* Responsive Navigation */
+      @media (max-width: 768px) {
+        nav ul {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Database Practice Problems</h1>
+      <nav>
+        <ul>
+          <li><a href="#problem1">1. Basic DB Connection</a></li>
+          <li><a href="#problem2">2. CRUD Operations</a></li>
+          <li><a href="#problem3">3. Querying &amp; Filtering</a></li>
+          <li><a href="#problem4">4. Aggregation Pipeline</a></li>
+          <li><a href="#problem5">5. Transactions &amp; Indexing</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Problem 1: Basic Database Connection -->
+      <section id="problem1">
+        <h2>1. Basic DB Connection (Easy)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Establish a connection to a MongoDB
+            database using Mongoose. Log a success or error message accordingly.
+          </p>
+          <pre><code class="javascript">
+// File: dbConnection.js
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017/mydatabase', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('Connection error:', err));
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 2: CRUD Operations -->
+      <section id="problem2">
+        <h2>2. CRUD Operations (Slightly Medium)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Create a Mongoose model for a simple
+            resource (e.g., a Book). Implement Create, Read, Update, and Delete
+            operations using this model.
+          </p>
+          <pre><code class="javascript">
+// File: bookCrud.js
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/mydatabase', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// Define a simple schema and model
+const bookSchema = new mongoose.Schema({
+  title: String,
+  author: String,
+});
+const Book = mongoose.model('Book', bookSchema);
+
+// Create a new book
+const newBook = new Book({ title: '1984', author: 'George Orwell' });
+newBook.save()
+  .then(book => {
+    console.log('Book saved:', book);
+    
+    // Read all books
+    return Book.find();
+  })
+  .then(books => {
+    console.log('All books:', books);
+    
+    // Update a book (Assume first book's id)
+    const bookId = books[0]._id;
+    return Book.findByIdAndUpdate(bookId, { title: 'Animal Farm' }, { new: true });
+  })
+  .then(updatedBook => {
+    console.log('Updated book:', updatedBook);
+    
+    // Delete the book
+    return Book.findByIdAndDelete(updatedBook._id);
+  })
+  .then(() => console.log('Book deleted'))
+  .catch(err => console.error(err));
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 3: Querying & Filtering -->
+      <section id="problem3">
+        <h2>3. Querying &amp; Filtering (Medium)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Using the same Book model, write a query
+            to filter books by a specific author. Log the filtered result.
+          </p>
+          <pre><code class="javascript">
+// File: queryFilter.js
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/mydatabase', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+const bookSchema = new mongoose.Schema({
+  title: String,
+  author: String,
+});
+const Book = mongoose.model('Book', bookSchema);
+
+// Query: Find books by George Orwell
+Book.find({ author: 'George Orwell' })
+  .then(books => console.log('Filtered books:', books))
+  .catch(err => console.error(err));
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 4: Aggregation Pipeline -->
+      <section id="problem4">
+        <h2>4. Aggregation Pipeline (Medium-Hard)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Use Mongoose’s aggregation pipeline to
+            count the number of books for each author. Log the aggregated
+            result.
+          </p>
+          <pre><code class="javascript">
+// File: aggregationPipeline.js
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/mydatabase', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+const bookSchema = new mongoose.Schema({
+  title: String,
+  author: String,
+});
+const Book = mongoose.model('Book', bookSchema);
+
+Book.aggregate([
+  { $group: { _id: '$author', count: { $sum: 1 } } }
+])
+.then(result => console.log('Aggregation result:', result))
+.catch(err => console.error(err));
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 5: Transactions & Indexing -->
+      <section id="problem5">
+        <h2>5. Transactions &amp; Indexing (Hard)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Implement an advanced operation that
+            demonstrates a MongoDB transaction using Mongoose. Additionally, add
+            an index on the <code>title</code> field for improved query
+            performance.
+          </p>
+          <pre><code class="javascript">
+// File: transactionIndex.js
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/mydatabase', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// Define a schema with an index on 'title'
+const bookSchema = new mongoose.Schema({
+  title: String,
+  author: String,
+});
+bookSchema.index({ title: 1 });
+const Book = mongoose.model('Book', bookSchema);
+
+async function runTransaction() {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+  try {
+    // Example: Update two documents atomically
+    const book1 = await Book.findOneAndUpdate({ title: '1984' }, { $set: { author: 'Orwell Updated' } }, { new: true, session });
+    const book2 = await Book.findOneAndUpdate({ title: 'Animal Farm' }, { $set: { author: 'Orwell Updated' } }, { new: true, session });
+    await session.commitTransaction();
+    console.log('Transaction committed:', { book1, book2 });
+  } catch (err) {
+    await session.abortTransaction();
+    console.error('Transaction aborted:', err);
+  } finally {
+    session.endSession();
+  }
+}
+
+runTransaction();
+        </code></pre>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Database Practice Problems</p>
+    </footer>
+    <script>
+      // Optional: Smooth scrolling for in-page anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

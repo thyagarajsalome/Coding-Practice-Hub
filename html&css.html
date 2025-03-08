@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML & CSS Practice Problems</title>
+    <style>
+      /* Global Styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background: #eef2f3;
+        color: #333;
+        padding: 10px;
+      }
+
+      header {
+        background: #35424a;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      header h1 {
+        margin-bottom: 10px;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav ul li {
+        margin: 5px 10px;
+      }
+
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      nav ul li a:hover {
+        text-decoration: underline;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+      }
+
+      section {
+        margin-bottom: 40px;
+      }
+
+      section h2 {
+        border-bottom: 2px solid #35424a;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+      }
+
+      article {
+        margin-bottom: 20px;
+      }
+
+      article pre {
+        background: #f4f4f4;
+        padding: 10px;
+        overflow-x: auto;
+        border-left: 5px solid #35424a;
+        border-radius: 3px;
+        margin-bottom: 10px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 10px;
+        margin-top: 20px;
+        background: #35424a;
+        color: #fff;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        nav ul {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>HTML & CSS Practice Problems</h1>
+      <nav>
+        <ul>
+          <li><a href="#problem1">1. Basic HTML Structure</a></li>
+          <li><a href="#problem2">2. HTML Form</a></li>
+          <li><a href="#problem3">3. Responsive Navigation Bar</a></li>
+          <li><a href="#problem4">4. Multi-Column Layout (Flexbox)</a></li>
+          <li><a href="#problem5">5. CSS Animations &amp; Transitions</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Problem 1: Basic HTML Structure -->
+      <section id="problem1">
+        <h2>1. Basic HTML Structure (Easy)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Create a basic HTML document with a
+            DOCTYPE declaration, head, and body. Include a header, a main
+            section with a paragraph, and a footer.
+          </p>
+          <pre><code class="html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+    &lt;title&gt;Basic HTML Structure&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;h1&gt;Welcome to My Website&lt;/h1&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+      &lt;p&gt;This is a simple HTML document.&lt;/p&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+      &copy; 2025 My Website
+    &lt;/footer&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 2: HTML Form -->
+      <section id="problem2">
+        <h2>2. HTML Form (Slightly Medium)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Create an HTML form that collects a user's
+            name, email, and message. Include proper labels, input fields, and a
+            submit button. Use minimal CSS to style the form.
+          </p>
+          <pre><code class="html">
+&lt;!-- HTML Form --&gt;
+&lt;form action="#" method="post" class="contact-form"&gt;
+  &lt;label for="name"&gt;Name:&lt;/label&gt;
+  &lt;input type="text" id="name" name="name" required /&gt;
+  
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="email" id="email" name="email" required /&gt;
+  
+  &lt;label for="message"&gt;Message:&lt;/label&gt;
+  &lt;textarea id="message" name="message" rows="4" required&gt;&lt;/textarea&gt;
+  
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+        </code></pre>
+          <pre><code class="css">
+/* CSS for the HTML Form */
+.contact-form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.contact-form label {
+  display: block;
+  margin: 10px 0 5px;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+.contact-form button {
+  background: #35424a;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+.contact-form button:hover {
+  background: #2c3e50;
+}
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 3: Responsive Navigation Bar -->
+      <section id="problem3">
+        <h2>3. Responsive Navigation Bar (Medium)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Build a responsive navigation bar using
+            HTML and CSS. The navigation should display horizontally on larger
+            screens and stack vertically on smaller screens.
+          </p>
+          <pre><code class="html">
+&lt;!-- Navigation Bar HTML --&gt;
+&lt;nav class="navbar"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Services&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+        </code></pre>
+          <pre><code class="css">
+/* CSS for Responsive Navigation Bar */
+.navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  background: #35424a;
+  padding: 10px;
+}
+.navbar ul li {
+  margin: 0 15px;
+}
+.navbar ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Responsive: Stack items on smaller screens */
+@media (max-width: 600px) {
+  .navbar ul {
+    flex-direction: column;
+    align-items: center;
+  }
+  .navbar ul li {
+    margin: 10px 0;
+  }
+}
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 4: Multi-Column Layout using Flexbox -->
+      <section id="problem4">
+        <h2>4. Multi-Column Layout (Medium-Hard)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Create a multi-column layout using
+            Flexbox. The page should display three columns on wider screens and
+            stack them on narrower screens.
+          </p>
+          <pre><code class="html">
+&lt;!-- Multi-Column Layout HTML --&gt;
+&lt;div class="flex-container"&gt;
+  &lt;div class="flex-item"&gt;Column 1&lt;/div&gt;
+  &lt;div class="flex-item"&gt;Column 2&lt;/div&gt;
+  &lt;div class="flex-item"&gt;Column 3&lt;/div&gt;
+&lt;/div&gt;
+        </code></pre>
+          <pre><code class="css">
+/* CSS for Multi-Column Layout */
+.flex-container {
+  display: flex;
+  gap: 15px;
+  margin: 20px;
+}
+.flex-item {
+  background: #f4f4f4;
+  padding: 20px;
+  flex: 1;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+/* Responsive: Stack columns on small screens */
+@media (max-width: 600px) {
+  .flex-container {
+    flex-direction: column;
+  }
+}
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 5: CSS Animations & Transitions -->
+      <section id="problem5">
+        <h2>5. CSS Animations &amp; Transitions (Hard)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Create a button with a hover effect using
+            CSS transitions and keyframe animations. The button should change
+            background color and scale slightly on hover, and the effect should
+            be smooth.
+          </p>
+          <pre><code class="html">
+&lt;!-- Animated Button HTML --&gt;
+&lt;button class="animated-btn"&gt;Hover Me&lt;/button&gt;
+        </code></pre>
+          <pre><code class="css">
+/* CSS for Animated Button */
+.animated-btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #fff;
+  background: #35424a;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.animated-btn:hover {
+  background: #2c3e50;
+  transform: scale(1.05);
+}
+
+/* Optional: Keyframe animation example */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* Apply animation on focus (for example) */
+.animated-btn:focus {
+  outline: none;
+  animation: pulse 1s infinite;
+}
+        </code></pre>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 HTML &amp; CSS Practice Problems</p>
+    </footer>
+    <script>
+      // Optional: Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Node.js Practice Problems</title>
+    <style>
+      /* Reset and Global Styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #eef2f3;
+        color: #333;
+        padding: 10px;
+      }
+
+      header {
+        background: #35424a;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      header h1 {
+        margin-bottom: 10px;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav ul li {
+        margin: 5px 10px;
+      }
+
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      nav ul li a:hover {
+        text-decoration: underline;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+      }
+
+      section {
+        margin-bottom: 40px;
+      }
+
+      section h2 {
+        border-bottom: 2px solid #35424a;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+      }
+
+      article {
+        margin-bottom: 20px;
+      }
+
+      article pre {
+        background: #f4f4f4;
+        padding: 10px;
+        overflow-x: auto;
+        border-left: 5px solid #35424a;
+        border-radius: 3px;
+        margin-bottom: 10px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 10px;
+        margin-top: 20px;
+        background: #35424a;
+        color: #fff;
+      }
+
+      /* Responsive Navigation */
+      @media (max-width: 768px) {
+        nav ul {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Node.js Practice Problems</h1>
+      <nav>
+        <ul>
+          <li><a href="#problem1">1. Basic HTTP Server</a></li>
+          <li><a href="#problem2">2. Asynchronous File Reading</a></li>
+          <li><a href="#problem3">3. Basic Express Server</a></li>
+          <li><a href="#problem4">4. Express Middleware</a></li>
+          <li><a href="#problem5">5. CLI Application with Async/Await</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Problem 1: Basic HTTP Server -->
+      <section id="problem1">
+        <h2>1. Basic HTTP Server (Easy)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Create a simple HTTP server using
+            Node.js’s built-in <code>http</code> module. The server should
+            listen on a specific port and respond with a plain text message.
+          </p>
+          <pre><code class="javascript">
+// File: server.js
+const http = require('http');
+const port = 3000;
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Hello from Node.js HTTP server!');
+});
+
+server.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}/`);
+});
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 2: Asynchronous File Reading -->
+      <section id="problem2">
+        <h2>2. Asynchronous File Reading (Slightly Medium)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Read a file asynchronously using the
+            <code>fs</code> module. Log its content to the console and handle
+            any errors.
+          </p>
+          <pre><code class="javascript">
+// File: readFile.js
+const fs = require('fs');
+
+fs.readFile('example.txt', 'utf8', (err, data) => {
+  if (err) {
+    return console.error('Error reading file:', err);
+  }
+  console.log('File content:', data);
+});
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 3: Basic Express Server -->
+      <section id="problem3">
+        <h2>3. Basic Express Server (Medium)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Build a simple Express server that
+            responds to GET requests on the root route (<code>/</code>) with a
+            welcome message.
+          </p>
+          <pre><code class="javascript">
+// File: expressServer.js
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello from Express!');
+});
+
+app.listen(port, () => {
+  console.log(`Express server listening on http://localhost:${port}`);
+});
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 4: Express Middleware -->
+      <section id="problem4">
+        <h2>4. Express Middleware (Medium-Hard)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Implement a custom middleware function in
+            Express to log the HTTP method and URL of each request. Then, create
+            a basic route to demonstrate the middleware in action.
+          </p>
+          <pre><code class="javascript">
+// File: middlewareExample.js
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Custom middleware to log request details
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+
+app.get('/', (req, res) => {
+  res.send('Check the console for logged requests.');
+});
+
+app.listen(port, () => {
+  console.log(`Server with middleware running at http://localhost:${port}`);
+});
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 5: CLI Application with Async/Await -->
+      <section id="problem5">
+        <h2>5. CLI Application with Async/Await (Hard)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Create a command-line application that
+            accepts a filename as an argument and reads its content
+            asynchronously using <code>async/await</code>. Log the file content
+            or an error message if the file does not exist.
+          </p>
+          <pre><code class="javascript">
+// File: cliApp.js
+const fs = require('fs').promises;
+
+async function main() {
+  try {
+    const filename = process.argv[2];
+    if (!filename) {
+      console.error('Please provide a filename as an argument.');
+      process.exit(1);
+    }
+    const data = await fs.readFile(filename, 'utf8');
+    console.log(`Content of ${filename}:`);
+    console.log(data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+main();
+        </code></pre>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Node.js Practice Problems</p>
+    </footer>
+    <script>
+      // Optional: Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

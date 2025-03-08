@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auth Practice Problems</title>
+    <style>
+      /* Global Reset and Styling */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #eef2f3;
+        color: #333;
+        padding: 10px;
+      }
+
+      header {
+        background: #35424a;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      header h1 {
+        margin-bottom: 10px;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav ul li {
+        margin: 5px 10px;
+      }
+
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      nav ul li a:hover {
+        text-decoration: underline;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+      }
+
+      section {
+        margin-bottom: 40px;
+      }
+
+      section h2 {
+        border-bottom: 2px solid #35424a;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+      }
+
+      article {
+        margin-bottom: 20px;
+      }
+
+      article pre {
+        background: #f4f4f4;
+        padding: 10px;
+        overflow-x: auto;
+        border-left: 5px solid #35424a;
+        border-radius: 3px;
+        margin-bottom: 10px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 10px;
+        margin-top: 20px;
+        background: #35424a;
+        color: #fff;
+      }
+
+      /* Responsive Navigation */
+      @media (max-width: 768px) {
+        nav ul {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Authentication Practice Problems</h1>
+      <nav>
+        <ul>
+          <li><a href="#problem1">1. Basic HTTP Basic Auth</a></li>
+          <li><a href="#problem2">2. Token-Based Auth Middleware</a></li>
+          <li><a href="#problem3">3. JWT Authentication</a></li>
+          <li><a href="#problem4">4. Passport.js Local Strategy</a></li>
+          <li><a href="#problem5">5. Advanced Refresh Token Flow</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Problem 1: Basic HTTP Basic Auth -->
+      <section id="problem1">
+        <h2>1. Basic HTTP Basic Auth (Easy)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Create a simple Express server that
+            protects a route using HTTP Basic Authentication. Check for a fixed
+            username and password combination.
+          </p>
+          <pre><code class="javascript">
+// File: basicAuth.js
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Basic Authentication middleware
+function basicAuth(req, res, next) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    res.setHeader('WWW-Authenticate', 'Basic');
+    return res.status(401).send('Authentication required.');
+  }
+
+  // Decode Base64 credentials
+  const [scheme, encoded] = authHeader.split(' ');
+  if (scheme !== 'Basic') return res.status(400).send('Unsupported authentication scheme.');
+
+  const decoded = Buffer.from(encoded, 'base64').toString();
+  const [username, password] = decoded.split(':');
+
+  // Validate credentials (example: user:admin, pass:password)
+  if (username === 'admin' && password === 'password') {
+    next();
+  } else {
+    res.status(401).send('Invalid credentials.');
+  }
+}
+
+app.get('/secure', basicAuth, (req, res) => {
+  res.send('Access granted to secure route!');
+});
+
+app.listen(port, () => {
+  console.log(`Basic Auth server running on http://localhost:${port}`);
+});
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 2: Token-Based Auth Middleware -->
+      <section id="problem2">
+        <h2>2. Token-Based Auth Middleware (Slightly Medium)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Build an Express API endpoint protected by
+            a custom middleware that checks for a static token (e.g.,
+            <code>mysecrettoken</code>) in the
+            <code>Authorization</code> header.
+          </p>
+          <pre><code class="javascript">
+// File: tokenAuth.js
+const express = require('express');
+const app = express();
+const port = 3000;
+
+// Token authentication middleware
+function tokenAuth(req, res, next) {
+  const token = req.headers['authorization'];
+  if (token === 'mysecrettoken') {
+    next();
+  } else {
+    res.status(401).json({ error: 'Unauthorized: Invalid or missing token' });
+  }
+}
+
+app.get('/api/secure', tokenAuth, (req, res) => {
+  res.json({ message: 'Access granted with valid token!' });
+});
+
+app.listen(port, () => {
+  console.log(`Token Auth server running on http://localhost:${port}`);
+});
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 3: JWT Authentication -->
+      <section id="problem3">
+        <h2>3. JWT Authentication (Medium)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Create an API endpoint that issues a JSON
+            Web Token (JWT) when a user logs in. Then build a protected route
+            that verifies the JWT before granting access.
+          </p>
+          <pre><code class="javascript">
+// File: jwtAuth.js
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const app = express();
+const port = 3000;
+app.use(express.json());
+
+const secretKey = 'supersecretkey';
+
+// Login endpoint - issues a token
+app.post('/login', (req, res) => {
+  // In practice, validate username/password here
+  const { username } = req.body;
+  const token = jwt.sign({ username }, secretKey, { expiresIn: '1h' });
+  res.json({ token });
+});
+
+// JWT verification middleware
+function verifyJWT(req, res, next) {
+  const token = req.headers['authorization'];
+  if (!token) return res.status(401).send('Token missing');
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) return res.status(401).send('Invalid token');
+    req.user = decoded;
+    next();
+  });
+}
+
+app.get('/api/protected', verifyJWT, (req, res) => {
+  res.json({ message: `Hello, ${req.user.username}. You are authorized.` });
+});
+
+app.listen(port, () => {
+  console.log(`JWT Auth server running on http://localhost:${port}`);
+});
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 4: Passport.js Local Strategy -->
+      <section id="problem4">
+        <h2>4. Passport.js Local Strategy (Medium-Hard)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Implement authentication using Passport.js
+            with the local strategy. Validate user credentials (hard-coded for
+            this example) and protect a route that only authenticated users can
+            access.
+          </p>
+          <pre><code class="javascript">
+// File: passportLocal.js
+const express = require('express');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+
+const app = express();
+const port = 3000;
+
+app.use(express.urlencoded({ extended: false }));
+app.use(session({ secret: 'sessionsecret', resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Hard-coded user for demonstration
+const user = { id: 1, username: 'user', password: 'pass' };
+
+passport.use(new LocalStrategy((username, password, done) => {
+  if (username === user.username && password === user.password) {
+    return done(null, user);
+  }
+  return done(null, false, { message: 'Incorrect credentials.' });
+}));
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+passport.deserializeUser((id, done) => {
+  if (id === user.id) {
+    done(null, user);
+  } else {
+    done('User not found', null);
+  }
+});
+
+// Login form route
+app.get('/login', (req, res) => {
+  res.send('<form method="post" action="/login">Username: <input name="username" /><br>Password: <input name="password" type="password"/><br><button type="submit">Login</button></form>');
+});
+
+// Authenticate using Passport's local strategy
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/profile',
+  failureRedirect: '/login'
+}));
+
+// Protected route
+app.get('/profile', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.send(`Hello, ${req.user.username}. Welcome to your profile.`);
+  } else {
+    res.redirect('/login');
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Passport Local Auth server running on http://localhost:${port}`);
+});
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Problem 5: Advanced Refresh Token Flow -->
+      <section id="problem5">
+        <h2>5. Advanced Refresh Token Flow (Hard)</h2>
+        <article>
+          <p>
+            <strong>Problem:</strong> Build a JWT authentication system that
+            implements refresh tokens. Create endpoints for login (to issue both
+            an access token and a refresh token) and for refreshing the access
+            token. Use an in-memory store for refresh tokens for simplicity.
+          </p>
+          <pre><code class="javascript">
+// File: jwtRefresh.js
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const app = express();
+const port = 3000;
+app.use(express.json());
+
+const accessTokenSecret = 'accesssecret';
+const refreshTokenSecret = 'refreshsecret';
+let refreshTokens = [];
+
+// Login endpoint issues access and refresh tokens
+app.post('/login', (req, res) => {
+  const { username } = req.body;
+  // In practice, validate credentials
+  const accessToken = jwt.sign({ username }, accessTokenSecret, { expiresIn: '20s' });
+  const refreshToken = jwt.sign({ username }, refreshTokenSecret, { expiresIn: '1d' });
+  refreshTokens.push(refreshToken);
+  res.json({ accessToken, refreshToken });
+});
+
+// Endpoint to refresh access token
+app.post('/token', (req, res) => {
+  const { token } = req.body;
+  if (!token) return res.sendStatus(401);
+  if (!refreshTokens.includes(token)) return res.sendStatus(403);
+  jwt.verify(token, refreshTokenSecret, (err, user) => {
+    if (err) return res.sendStatus(403);
+    const accessToken = jwt.sign({ username: user.username }, accessTokenSecret, { expiresIn: '20s' });
+    res.json({ accessToken });
+  });
+});
+
+// Protected endpoint
+function verifyAccessToken(req, res, next) {
+  const token = req.headers['authorization'];
+  if (!token) return res.sendStatus(401);
+  jwt.verify(token, accessTokenSecret, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+}
+
+app.get('/api/protected', verifyAccessToken, (req, res) => {
+  res.json({ message: `Hello, ${req.user.username}. This is protected data.` });
+});
+
+app.listen(port, () => {
+  console.log(`JWT Refresh Token server running on http://localhost:${port}`);
+});
+        </code></pre>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Auth Practice Problems</p>
+    </footer>
+    <script>
+      // Optional: Smooth scrolling for in-page anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

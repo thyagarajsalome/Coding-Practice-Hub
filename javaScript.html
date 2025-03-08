@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Practice Problems</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Reset and box-sizing */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background: #f4f4f4;
+        color: #333;
+        padding: 10px;
+      }
+
+      header {
+        background: #35424a;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      header h1 {
+        margin-bottom: 10px;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav ul li {
+        margin: 5px 10px;
+      }
+
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      nav ul li a:hover {
+        text-decoration: underline;
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+      }
+
+      section {
+        margin-bottom: 40px;
+      }
+
+      section h2 {
+        border-bottom: 2px solid #35424a;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+      }
+
+      article {
+        margin-bottom: 20px;
+      }
+
+      article h3 {
+        margin-bottom: 10px;
+        color: #35424a;
+      }
+
+      article p {
+        margin-bottom: 10px;
+      }
+
+      pre {
+        background: #f4f4f4;
+        padding: 10px;
+        overflow-x: auto;
+        border-left: 5px solid #35424a;
+        border-radius: 3px;
+        margin-bottom: 10px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 10px;
+        margin-top: 20px;
+        background: #35424a;
+        color: #fff;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        nav ul {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>JavaScript Practice Problems</h1>
+      <nav>
+        <ul>
+          <li><a href="#section1">1. JavaScript Fundamentals</a></li>
+          <li><a href="#section2">2. Control Flow &amp; Loops</a></li>
+          <li><a href="#section3">3. Functions &amp; Scope</a></li>
+          <li><a href="#section4">4. Arrays &amp; Objects</a></li>
+          <li><a href="#section5">5. Advanced Functions</a></li>
+          <li><a href="#section6">6. Asynchronous JavaScript</a></li>
+          <li><a href="#section7">7. ES6+ Features</a></li>
+          <li><a href="#section8">8. Advanced Topics</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Section 1: JavaScript Fundamentals -->
+      <section id="section1">
+        <h2>1. JavaScript Fundamentals</h2>
+        <article>
+          <h3>Problem 1 (Easy): Variable Declaration and Output</h3>
+          <p>
+            <strong>Problem:</strong> Declare variables of different data types
+            (number, string, boolean) and log them to the console.
+          </p>
+          <pre><code class="javascript">
+// Declaring variables of different types
+let numberVar = 42;
+let stringVar = "Hello, JavaScript!";
+let booleanVar = true;
+
+// Logging the variables to the console
+console.log("Number:", numberVar);
+console.log("String:", stringVar);
+console.log("Boolean:", booleanVar);
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 2 (Slightly Medium): Basic Arithmetic</h3>
+          <p>
+            <strong>Problem:</strong> Write a program that calculates the sum,
+            difference, product, and quotient of two numbers.
+          </p>
+          <pre><code class="javascript">
+let a = 20;
+let b = 5;
+
+console.log("Sum:", a + b);
+console.log("Difference:", a - b);
+console.log("Product:", a * b);
+console.log("Quotient:", a / b);
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 3 (Medium): Type Conversion</h3>
+          <p>
+            <strong>Problem:</strong> Convert a string containing a number into
+            a numeric type and add 10 to it.
+          </p>
+          <pre><code class="javascript">
+let numericString = "25";
+let convertedNumber = Number(numericString); // or parseInt(numericString)
+let result = convertedNumber + 10;
+
+console.log("Result:", result);
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 4 (Medium-Hard): Template Literals</h3>
+          <p>
+            <strong>Problem:</strong> Use template literals to output a greeting
+            message that includes a variable (for example, a name).
+          </p>
+          <pre><code class="javascript">
+let name = "Alice";
+let greeting = `Hello, ${name}! Welcome to JavaScript practice.`;
+
+console.log(greeting);
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 5 (Hard): Function to Check Data Type</h3>
+          <p>
+            <strong>Problem:</strong> Write a function that takes any input and
+            returns a string indicating its data type.
+          </p>
+          <pre><code class="javascript">
+function checkDataType(input) {
+  return `The type of the input is ${typeof input}`;
+}
+
+console.log(checkDataType(123));         // "number"
+console.log(checkDataType("JavaScript"));  // "string"
+console.log(checkDataType(true));          // "boolean"
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Section 2: Control Flow & Loops -->
+      <section id="section2">
+        <h2>2. Control Flow &amp; Loops</h2>
+        <article>
+          <h3>Problem 1 (Easy): If-Else Condition</h3>
+          <p>
+            <strong>Problem:</strong> Write a program that checks if a given
+            number is positive, negative, or zero and prints the result.
+          </p>
+          <pre><code class="javascript">
+let num = -5;
+
+if (num > 0) {
+  console.log("Positive");
+} else if (num < 0) {
+  console.log("Negative");
+} else {
+  console.log("Zero");
+}
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 2 (Slightly Medium): Switch Statement</h3>
+          <p>
+            <strong>Problem:</strong> Given a number representing a day of the
+            week (1–7), use a switch statement to print the corresponding day.
+          </p>
+          <pre><code class="javascript">
+let dayNumber = 3;
+let dayName;
+
+switch (dayNumber) {
+  case 1:
+    dayName = "Sunday";
+    break;
+  case 2:
+    dayName = "Monday";
+    break;
+  case 3:
+    dayName = "Tuesday";
+    break;
+  case 4:
+    dayName = "Wednesday";
+    break;
+  case 5:
+    dayName = "Thursday";
+    break;
+  case 6:
+    dayName = "Friday";
+    break;
+  case 7:
+    dayName = "Saturday";
+    break;
+  default:
+    dayName = "Invalid day";
+}
+
+console.log(dayName);
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 3 (Medium): For Loop Summation</h3>
+          <p>
+            <strong>Problem:</strong> Write a program that calculates the sum of
+            all numbers from 1 to a given positive integer n.
+          </p>
+          <pre><code class="javascript">
+function sumToN(n) {
+  let sum = 0;
+  for (let i = 1; i <= n; i++) {
+    sum += i;
+  }
+  return sum;
+}
+
+console.log("Sum from 1 to 10:", sumToN(10));
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 4 (Medium-Hard): While Loop to Reverse a String</h3>
+          <p>
+            <strong>Problem:</strong> Write a program that reverses a given
+            string using a while loop.
+          </p>
+          <pre><code class="javascript">
+function reverseString(str) {
+  let reversed = "";
+  let index = str.length - 1;
+  while (index >= 0) {
+    reversed += str[index];
+    index--;
+  }
+  return reversed;
+}
+
+console.log("Reversed string:", reverseString("JavaScript"));
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 5 (Hard): Nested Loops – Multiplication Table</h3>
+          <p>
+            <strong>Problem:</strong> Print a multiplication table (1 to 10)
+            using nested loops.
+          </p>
+          <pre><code class="javascript">
+for (let i = 1; i <= 10; i++) {
+  let row = "";
+  for (let j = 1; j <= 10; j++) {
+    row += (i * j).toString().padStart(4, " ");
+  }
+  console.log(row);
+}
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Section 3: Functions & Scope -->
+      <section id="section3">
+        <h2>3. Functions &amp; Scope</h2>
+        <article>
+          <h3>Problem 1 (Easy): Simple Addition Function</h3>
+          <p>
+            <strong>Problem:</strong> Write a function that takes two numbers
+            and returns their sum.
+          </p>
+          <pre><code class="javascript">
+function add(a, b) {
+  return a + b;
+}
+
+console.log("Sum:", add(5, 7));
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>
+            Problem 2 (Slightly Medium): Arrow Function for Temperature
+            Conversion
+          </h3>
+          <p>
+            <strong>Problem:</strong> Write an arrow function that converts
+            Celsius to Fahrenheit.
+          </p>
+          <pre><code class="javascript">
+const celsiusToFahrenheit = celsius => (celsius * 9/5) + 32;
+
+console.log("25°C in Fahrenheit:", celsiusToFahrenheit(25));
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 3 (Medium): Function with Default Parameters</h3>
+          <p>
+            <strong>Problem:</strong> Write a function that calculates the area
+            of a rectangle. Use default values of 1 for width and height if not
+            provided.
+          </p>
+          <pre><code class="javascript">
+function rectangleArea(width = 1, height = 1) {
+  return width * height;
+}
+
+console.log("Area (default):", rectangleArea());
+console.log("Area (5, 3):", rectangleArea(5, 3));
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 4 (Medium-Hard): Closure Example</h3>
+          <p>
+            <strong>Problem:</strong> Create a function that returns another
+            function which adds a specific number to its argument.
+          </p>
+          <pre><code class="javascript">
+function createAdder(x) {
+  return function(y) {
+    return x + y;
+  };
+}
+
+const addFive = createAdder(5);
+console.log("5 + 10 =", addFive(10));
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>
+            Problem 5 (Hard): Immediately Invoked Function Expression (IIFE)
+          </h3>
+          <p>
+            <strong>Problem:</strong> Write an IIFE that calculates the square
+            of a given number and logs it to the console.
+          </p>
+          <pre><code class="javascript">
+(function(num) {
+  console.log(`Square of ${num} is:`, num * num);
+})(6);
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Section 4: Arrays & Objects -->
+      <section id="section4">
+        <h2>4. Arrays &amp; Objects</h2>
+        <article>
+          <h3>Problem 1 (Easy): Array Operations</h3>
+          <p>
+            <strong>Problem:</strong> Create an array of numbers, add a new
+            element at the end, remove the first element, and log the final
+            array.
+          </p>
+          <pre><code class="javascript">
+let numbers = [1, 2, 3, 4];
+numbers.push(5);        // Add element at the end
+numbers.shift();        // Remove the first element
+console.log("Final Array:", numbers);
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 2 (Slightly Medium): Map, Filter, and Reduce</h3>
+          <p>
+            <strong>Problem:</strong> Given an array of numbers, use map to
+            square each number, filter out those greater than 10, and reduce to
+            sum the remaining numbers.
+          </p>
+          <pre><code class="javascript">
+let nums = [1, 2, 3, 4, 5];
+
+let squares = nums.map(num => num * num);
+let filtered = squares.filter(square => square <= 10);
+let sum = filtered.reduce((acc, val) => acc + val, 0);
+
+console.log("Squares:", squares);
+console.log("Filtered (<=10):", filtered);
+console.log("Sum:", sum);
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 3 (Medium): Object Property Access</h3>
+          <p>
+            <strong>Problem:</strong> Create an object representing a person
+            (with properties like name, age, and city). Write a function that
+            prints a sentence using these properties.
+          </p>
+          <pre><code class="javascript">
+let person = {
+  name: "Bob",
+  age: 30,
+  city: "New York"
+};
+
+function describePerson({ name, age, city }) {
+  console.log(`${name} is ${age} years old and lives in ${city}.`);
+}
+
+describePerson(person);
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 4 (Medium-Hard): Destructuring Assignment</h3>
+          <p>
+            <strong>Problem:</strong> Given an object with properties
+            <code>x</code>, <code>y</code>, and <code>z</code>, use
+            destructuring to extract the values and log them.
+          </p>
+          <pre><code class="javascript">
+const point = { x: 10, y: 20, z: 30 };
+const { x, y, z } = point;
+
+console.log("x:", x, "y:", y, "z:", z);
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 5 (Hard): Deep Copying an Object</h3>
+          <p>
+            <strong>Problem:</strong> Write a function that creates a deep copy
+            of a nested object (without using JSON methods).
+          </p>
+          <pre><code class="javascript">
+function deepCopy(obj) {
+  if (obj === null || typeof obj !== "object") {
+    return obj;
+  }
+  // Handle Array
+  if (Array.isArray(obj)) {
+    return obj.map(item => deepCopy(item));
+  }
+  // Handle Object
+  const copy = {};
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      copy[key] = deepCopy(obj[key]);
+    }
+  }
+  return copy;
+}
+
+// Example
+const original = {
+  name: "Alice",
+  details: {
+    age: 25,
+    hobbies: ["reading", "gaming"]
+  }
+};
+
+const copied = deepCopy(original);
+copied.details.age = 30;
+console.log("Original Age:", original.details.age);
+console.log("Copied Age:", copied.details.age);
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Section 5: Advanced Functions -->
+      <section id="section5">
+        <h2>5. Advanced Functions</h2>
+        <article>
+          <h3>Problem 1 (Easy): First-Class Functions</h3>
+          <p>
+            <strong>Problem:</strong> Assign a function to a variable and then
+            call it.
+          </p>
+          <pre><code class="javascript">
+const greet = function(name) {
+  return `Hello, ${name}!`;
+};
+
+console.log(greet("Charlie"));
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 2 (Slightly Medium): Callback Functions</h3>
+          <p>
+            <strong>Problem:</strong> Write a function that accepts a callback
+            and calls it after a 1-second delay using <code>setTimeout</code>.
+          </p>
+          <pre><code class="javascript">
+function delayedCallback(callback) {
+  setTimeout(() => {
+    callback("Callback executed after 1 second!");
+  }, 1000);
+}
+
+delayedCallback(message => console.log(message));
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 3 (Medium): Higher-Order Function</h3>
+          <p>
+            <strong>Problem:</strong> Write a higher-order function that takes a
+            function and a value, and returns a new function that applies the
+            given function to the value when called.
+          </p>
+          <pre><code class="javascript">
+function higherOrder(fn, value) {
+  return function() {
+    return fn(value);
+  };
+}
+
+function square(x) {
+  return x * x;
+}
+
+const squareOfFive = higherOrder(square, 5);
+console.log("Square of 5:", squareOfFive());
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 4 (Medium-Hard): Custom Map Implementation</h3>
+          <p>
+            <strong>Problem:</strong> Implement a custom version of the
+            <code>Array.prototype.map</code> function.
+          </p>
+          <pre><code class="javascript">
+function customMap(arr, callback) {
+  const result = [];
+  for (let i = 0; i < arr.length; i++) {
+    result.push(callback(arr[i], i, arr));
+  }
+  return result;
+}
+
+const numbersArr = [1, 2, 3, 4];
+const doubled = customMap(numbersArr, num => num * 2);
+console.log("Doubled Array:", doubled);
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 5 (Hard): Function Currying</h3>
+          <p>
+            <strong>Problem:</strong> Write a curried function that takes three
+            arguments one by one and returns their sum.
+          </p>
+          <pre><code class="javascript">
+function curriedSum(a) {
+  return function(b) {
+    return function(c) {
+      return a + b + c;
+    };
+  };
+}
+
+console.log("Curried Sum:", curriedSum(1)(2)(3)); // Outputs 6
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Section 6: Asynchronous JavaScript -->
+      <section id="section6">
+        <h2>6. Asynchronous JavaScript</h2>
+        <article>
+          <h3>Problem 1 (Easy): Using setTimeout</h3>
+          <p>
+            <strong>Problem:</strong> Log "Hello after 2 seconds" to the console
+            after a 2-second delay using <code>setTimeout</code>.
+          </p>
+          <pre><code class="javascript">
+setTimeout(() => {
+  console.log("Hello after 2 seconds");
+}, 2000);
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 2 (Slightly Medium): Simple Promise</h3>
+          <p>
+            <strong>Problem:</strong> Create a promise that resolves with the
+            message "Promise Resolved" and handle it using <code>.then</code>.
+          </p>
+          <pre><code class="javascript">
+const simplePromise = new Promise((resolve, reject) => {
+  resolve("Promise Resolved");
+});
+
+simplePromise.then(message => console.log(message));
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 3 (Medium): Chaining Promises</h3>
+          <p>
+            <strong>Problem:</strong> Chain two promises. The first resolves to
+            a number, and the second adds 10 to that number.
+          </p>
+          <pre><code class="javascript">
+const firstPromise = new Promise((resolve, reject) => {
+  resolve(15);
+});
+
+firstPromise
+  .then(num => {
+    return num + 10;
+  })
+  .then(result => {
+    console.log("Result after chaining:", result);
+  });
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 4 (Medium-Hard): Async/Await</h3>
+          <p>
+            <strong>Problem:</strong> Write an async function that awaits a
+            promise (which resolves after 1 second) and then logs a message.
+          </p>
+          <pre><code class="javascript">
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function asyncMessage() {
+  await delay(1000);
+  console.log("Message after 1 second (async/await)");
+}
+
+asyncMessage();
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 5 (Hard): Error Handling in Async Functions</h3>
+          <p>
+            <strong>Problem:</strong> Write an async function that awaits a
+            promise which rejects, and properly catches the error.
+          </p>
+          <pre><code class="javascript">
+function failingPromise() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => reject("Something went wrong!"), 1000);
+  });
+}
+
+async function asyncErrorHandling() {
+  try {
+    await failingPromise();
+  } catch (error) {
+    console.error("Caught error:", error);
+  }
+}
+
+asyncErrorHandling();
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Section 7: ES6+ Features -->
+      <section id="section7">
+        <h2>7. ES6+ Features</h2>
+        <article>
+          <h3>Problem 1 (Easy): Arrow Function Conversion</h3>
+          <p>
+            <strong>Problem:</strong> Convert a traditional function to an arrow
+            function that returns the square of a number.
+          </p>
+          <pre><code class="javascript">
+// Traditional function
+function squareTraditional(num) {
+  return num * num;
+}
+
+// Arrow function
+const squareArrow = num => num * num;
+
+console.log("Square (arrow):", squareArrow(4));
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 2 (Slightly Medium): let and const Usage</h3>
+          <p>
+            <strong>Problem:</strong> Write a program that demonstrates the use
+            of <code>let</code> and <code>const</code> in a loop and explains
+            their differences via comments.
+          </p>
+          <pre><code class="javascript">
+// Using 'let' for variables that change
+for (let i = 0; i < 3; i++) {
+  console.log("let i:", i);
+}
+
+// 'const' declares a constant that cannot be re-assigned
+const PI = 3.14159;
+console.log("Constant PI:", PI);
+
+// Note: Using 'const' in a loop for the counter would throw an error because its value must not change.
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 3 (Medium): Template Literals for Multiline Strings</h3>
+          <p>
+            <strong>Problem:</strong> Construct a multi-line string using
+            template literals that includes variable interpolation.
+          </p>
+          <pre><code class="javascript">
+let user = "David";
+let multiLineString = `Hello ${user},
+Welcome to the world of JavaScript.
+Enjoy coding!`;
+
+console.log(multiLineString);
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 4 (Medium-Hard): Destructuring and Spread Operator</h3>
+          <p>
+            <strong>Problem:</strong> Given an object and an array, use
+            destructuring to extract values and the spread operator to merge two
+            arrays.
+          </p>
+          <pre><code class="javascript">
+// Object destructuring
+const personInfo = { name: "Eva", age: 28, city: "Paris" };
+const { name, age } = personInfo;
+console.log("Name:", name, "Age:", age);
+
+// Spread operator with arrays
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const mergedArr = [...arr1, ...arr2];
+console.log("Merged Array:", mergedArr);
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 5 (Hard): Class Inheritance</h3>
+          <p>
+            <strong>Problem:</strong> Create a base class
+            <code>Animal</code> with a method and then create a subclass
+            <code>Dog</code> that overrides that method. Demonstrate inheritance
+            by creating instances and calling methods.
+          </p>
+          <pre><code class="javascript">
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  
+  speak() {
+    console.log(`${this.name} makes a sound.`);
+  }
+}
+
+class Dog extends Animal {
+  speak() {
+    console.log(`${this.name} barks.`);
+  }
+}
+
+const genericAnimal = new Animal("Generic Animal");
+const myDog = new Dog("Buddy");
+
+genericAnimal.speak(); // Generic sound
+myDog.speak();         // Buddy barks
+        </code></pre>
+        </article>
+      </section>
+
+      <!-- Section 8: Advanced Topics -->
+      <section id="section8">
+        <h2>8. Advanced Topics</h2>
+        <article>
+          <h3>Problem 1 (Easy): Prototype Chain Demonstration</h3>
+          <p>
+            <strong>Problem:</strong> Demonstrate the prototype chain by adding
+            a method to the prototype of a constructor function.
+          </p>
+          <pre><code class="javascript">
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.greet = function() {
+  console.log(`Hello, my name is ${this.name}`);
+};
+
+const person1 = new Person("Frank");
+person1.greet(); // "Hello, my name is Frank"
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 2 (Slightly Medium): Custom Bind Implementation</h3>
+          <p>
+            <strong>Problem:</strong> Implement a function that simulates the
+            behavior of <code>Function.prototype.bind</code>.
+          </p>
+          <pre><code class="javascript">
+Function.prototype.myBind = function(context, ...args) {
+  let fn = this;
+  return function(...newArgs) {
+    return fn.apply(context, args.concat(newArgs));
+  };
+};
+
+// Example usage:
+function greet(greeting, punctuation) {
+  console.log(greeting + ", " + this.name + punctuation);
+}
+
+const person = { name: "Grace" };
+const boundGreet = greet.myBind(person, "Hi");
+boundGreet("!"); // "Hi, Grace!"
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 3 (Medium): Simple Publish/Subscribe Pattern</h3>
+          <p>
+            <strong>Problem:</strong> Implement a simple pub/sub system in
+            JavaScript.
+          </p>
+          <pre><code class="javascript">
+class EventEmitter {
+  constructor() {
+    this.events = {};
+  }
+  
+  subscribe(event, listener) {
+    if (!this.events[event]) {
+      this.events[event] = [];
+    }
+    this.events[event].push(listener);
+  }
+  
+  publish(event, data) {
+    if (this.events[event]) {
+      this.events[event].forEach(listener => listener(data));
+    }
+  }
+}
+
+// Usage example:
+const emitter = new EventEmitter();
+emitter.subscribe("message", data => console.log("Received:", data));
+emitter.publish("message", "Hello, pub/sub!");
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 4 (Medium-Hard): Event Loop Simulation</h3>
+          <p>
+            <strong>Problem:</strong> Write code that demonstrates asynchronous
+            behavior and explains, via comments, how tasks and microtasks are
+            handled by the event loop.
+          </p>
+          <pre><code class="javascript">
+console.log("Start");
+
+setTimeout(() => {
+  console.log("Timeout callback (macrotask)");
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log("Promise callback (microtask)");
+});
+
+console.log("End");
+
+/* 
+Expected Output Order:
+1. "Start"
+2. "End"
+3. "Promise callback (microtask)" – microtasks run after the current call stack
+4. "Timeout callback (macrotask)" – macrotasks run after microtasks
+*/
+        </code></pre>
+        </article>
+
+        <article>
+          <h3>Problem 5 (Hard): Custom Iterable with Symbols</h3>
+          <p>
+            <strong>Problem:</strong> Create a custom iterable object using
+            <code>Symbol.iterator</code> so that it can be used in a for…of
+            loop.
+          </p>
+          <pre><code class="javascript">
+const myIterable = {
+  data: [10, 20, 30, 40],
+  [Symbol.iterator]() {
+    let index = 0;
+    let data = this.data;
+    return {
+      next() {
+        if (index < data.length) {
+          return { value: data[index++], done: false };
+        } else {
+          return { done: true };
+        }
+      }
+    };
+  }
+};
+
+for (const value of myIterable) {
+  console.log("Iterated value:", value);
+}
+        </code></pre>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 JavaScript Practice Problems</p>
+    </footer>
+    <script>
+      // Optional: Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
